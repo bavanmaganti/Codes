@@ -1,0 +1,133 @@
+def check_according_to_bits(l, array, number):
+    ch = []
+    for i, j in zip(l, array):
+        if i == 1:
+            ch.append(-1 * j)
+        else:
+            ch.append(j)
+    
+    return ch if sum(ch) == number else None
+
+def poss(l, array, number, i=0):
+    ans = check_according_to_bits(l, array, number)
+    if ans:
+        return ans
+    
+    for j in range(i, len(l)):
+        l[j] = 1
+        ans = poss(l, array, number, j + 1)
+        if ans:
+            return ans
+        l[j] = 0
+    
+    return None
+
+def bit_generator_for_sub(le, array, number):
+    ll = [0] * le
+    return poss(ll, array, number)
+
+def checker(number, l):
+    sub = bit_generator_for_sub(len(l), l, number)
+    return sub if sub else None
+
+def subarraymaker(number, array, l=[], i=0):
+    if l:
+        print(l)
+        check = checker(number, l)
+        if check:
+            return check
+    
+    for j in range(i, len(array)):
+        l.append(array[j])
+        ans = subarraymaker(number, array, l, j + 1)
+        if ans:
+            return ans
+        l.pop()
+    
+    return None
+
+def arraymaker(number):
+    i = 0
+    array = []
+    while 3 ** i <= number:
+        array.append(3 ** i)
+        i += 1 
+    array.append(3 ** i)
+    return array
+
+# Main program
+number = int(input("Enter the number: "))
+array = arraymaker(number)
+print("Array of powers of 3:", array)
+result = subarraymaker(number, array)
+print("Result:", result)
+########################################################################################################################
+
+def check_according_to_bits(l, array, number):
+    ch = []
+    for i, j in zip(l, array):
+        if i == 1:
+            ch.append(-1 * j)
+        else:
+            ch.append(j)
+    
+    return ch if sum(ch) == number else None
+
+def poss(l, array, number, i=0):
+    ans = check_according_to_bits(l, array, number)
+    if ans:
+        return ans
+    
+    for j in range(i, len(l)):
+        l[j] = 1
+        ans = poss(l, array, number, j + 1)
+        if ans:
+            return ans
+        l[j] = 0
+    
+    return None
+
+def bit_generator_for_sub(le, array, number):
+    ll = [0] * le
+    return poss(ll, array, number)
+
+def checker(number, l):
+    sub = bit_generator_for_sub(len(l), l, number)
+    if sub:
+        return sub
+
+    k = [0] * len(l)
+    add = poss(k, l, number)
+    return add if add else None
+
+def subarraymaker(number, array, l=[], i=0):
+    if l:
+        print(l)
+        check = checker(number, l)
+        if check:
+            return check
+    
+    for j in range(i, len(array)):
+        l.append(array[j])
+        ans = subarraymaker(number, array, l, j + 1)
+        if ans:
+            return ans
+        l.pop()
+    
+    return None
+
+def arraymaker(number):
+    i = 0
+    array = []
+    while 3 ** i <= number:
+        array.append(3 ** i)
+        i += 1 
+    array.append(3 ** i)
+    return array
+
+# Main program
+number = int(input("Enter the number: "))
+array = arraymaker(number)
+print("Array of powers of 3:", array)
+result = subarraymaker(number, array)
+print("Result:", result)

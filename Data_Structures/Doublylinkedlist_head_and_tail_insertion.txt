@@ -1,0 +1,125 @@
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.next=None
+        self.prev=None 
+        
+class Doublylinkedlist:
+    def __init__(self):
+        self.head=None
+        self.size=0
+        
+    def insertathead(self,data):
+        self.size+=1
+        newnode=Node(data)
+        if self.head:
+            self.head.prev=newnode
+            newnode.next=self.head 
+        self.head=newnode
+    
+    def insertattail(self,data):
+        self.size+=1
+        newnode=Node(data)
+        if self.head:
+            curr=self.head 
+            while curr.next:
+                curr=curr.next
+            curr.next=newnode
+            newnode.prev=curr
+            return
+        self.head=newnode
+    
+    def removeheadnode(self):
+        curr=self.head
+        self.head=self.head.next
+        curr.next=None 
+        self.head.prev=None
+    
+    def removetailnode(self):
+        curr=self.head
+        while curr.next.next:
+            curr=curr.next
+        curr.next=None 
+        
+    def removeindex(self,index):
+        if index<self.size and index>=0:
+            curr=self.head
+            while index!=0:
+                curr=curr.next
+                index-=1
+            if curr.next==None:
+                self.removetailnode()
+            elif curr.prev==None:
+                self.removeheadnode()
+            else:
+                curr.prev.next=curr.next
+                curr.next.prev=curr.prev
+                curr.next=None
+                curr.prev=None 
+        else:
+            print('Empty List')
+            
+    def appendindex(self,data,indice):
+        if indice>=0 and indice<self.size:
+            newnode=Node(data)
+            curr=self.head 
+            while indice!=0:
+                curr=curr.next
+                indice-=1 
+            if curr.next==None:
+                self.insertattail(data)
+            elif curr.prev==None:
+                self.insertathead(data)
+            else:
+                newnode.next=curr 
+                newnode.prev=curr.prev
+                newnode.prev.next=newnode
+                newnode.next.prev=newnode
+            
+    
+    def reverslistfromtail(self):
+        curr=self.head 
+        while curr.next:
+            curr=curr.next
+        self.head=curr
+        while curr:
+            nextnode=curr.prev
+            curr.prev=curr.next
+            curr.next=nextnode
+            curr1=curr
+            curr=nextnode
+            
+    def reverslistfromhead(self):
+        curr=self.head
+        while curr:
+            newnode=curr.next 
+            curr.next=curr.prev
+            curr.prev=newnode
+            curr1=curr
+            curr=newnode
+        self.head=curr1
+        
+        
+    def size(self):
+        print(self.size)
+    
+    def showlist(self):
+        curr=self.head 
+        while curr:
+            print(curr.prev,'|',curr.data,'|',curr.next)
+            print('           ',curr,'          ')
+            curr=curr.next 
+        print('********************************\n***************************')
+    
+l=Doublylinkedlist()
+l.insertathead(0)
+l.insertathead(1)
+l.insertathead(2)
+l.insertattail(-1)
+l.insertathead(3)
+l.insertattail(-2)
+l.showlist()
+l.appendindex(4,0)
+l.showlist()
+l.appendindex(-3,6)
+l.showlist()

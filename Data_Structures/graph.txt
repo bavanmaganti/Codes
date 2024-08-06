@@ -1,0 +1,17 @@
+def graphgen(edges):
+    graph={}
+    for edge in edges:
+        graph[edge[0]]=[]
+        for links in edge:
+            if links!=edge[0]:
+                graph[edge[0]].append(links)
+    return graph
+    pass
+
+edges=[['a','b','f','d','m','j'],['b','a','m','f','c','k'],['c','b','f','d','k','l'],['d','f','a','l','c','j'],['f','a','b','c','d'],
+  ['l','d','c','j','k'],['j','m','a','d','l'],['k','m','b','c','l'],['m','k','b','a','j'],['o','m','j','l']]
+  
+p=graphgen(edges)
+for i in p:
+    print(i)
+    print(p[i])

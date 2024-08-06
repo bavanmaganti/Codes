@@ -1,0 +1,39 @@
+l=[[80,70],[70,80,60],[60,70,10],[10,60,20,40,50],[50,10],[40,10],[20,10,90],[90,20,100],[100,90]]
+# l=[]
+# for i in range(7):
+#     l.append(input().split())
+# bfs
+d = {
+    'A':['B','C','D','E'],
+    'B':["A",'K','H','M'],
+    'C':['A','L','F','J','G'],
+    'D':['A','I','K'],
+    'E':['A','I','L'],
+    'F':['J','L','C'],
+    'G':['J','M','C'],
+    'H':['B','M','K'],
+    'I':['D','E','L','K'],
+    'K':['B','D','I','H'],
+    'L':['C','F','E','I'],
+    'J':['F','G','C'],
+    'M':['G','B','H']
+}
+
+# for i in l:
+#     if i[0] not in d:
+#         d[i[0]]=i[1:]
+#     else:
+#         d[i[0]]+=i[1:]
+print(d)
+que=[]
+visited=[]
+root=input('enter root ')
+que=[root]
+while que:
+    root=que.pop(0)
+    if root not in visited:
+        visited.append(root)
+        for i in d[root]:
+            if i not in que and i not in visited:
+                que.append(i)
+print(visited)  

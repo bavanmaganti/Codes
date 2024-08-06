@@ -1,0 +1,33 @@
+def mergeLists(head1, head2):
+    headx=None
+    start=None
+    if head1==None:
+        return head2
+    if head2==None:
+        return head1
+    while head1 or head2:
+        if head1.data<=head2.data:
+            if headx:
+                headx.next=head1
+                head1=head1.next
+                headx=headx.next
+            else:
+                start=head1
+                headx=head1
+                head1=head1.next 
+                headx.next=head2
+                headx=headx.next
+                head2=head2.next 
+        else:
+            if headx:
+                headx.next=head2
+                head2=head2.next
+                headx=headx.next
+            else:
+                start=head2
+                headx=head2
+                head2=head2.next 
+                headx.next=head1
+                headx=headx.next
+                head1=head1.next 
+    return start

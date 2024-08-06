@@ -1,0 +1,104 @@
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.next=None 
+        
+class Linkedlist:
+    def __init__(self):
+        self.head=None
+        self.size=0
+        
+    def insertfromhead(self,data):
+        self.size+=1
+        newnode=Node(data)
+        newnode.next=self.head
+        self.head=newnode
+    
+    def insertfromtail(self,data):
+        self.size+=1
+        newnode=Node(data)
+        if self.head:
+            curr=self.head 
+            while curr.next:
+                curr=curr.next 
+            curr.next=newnode
+            return
+        self.head=newnode
+        
+    def removetail(self):
+        self.size-=1
+        curr=self.head
+        while curr.next.next:
+            curr=curr.next
+        curr.next=None 
+        
+    def removehead(self):
+        self.size-=1
+        curr=self.head
+        self.head=self.head.next
+        curr.next=None
+    
+    def removeindex(self,indice):
+        self.size-=1
+        if indice==0:
+            self.removehead()
+        elif indice<self.size-2 and indice>0:
+            curr=self.head 
+            while indice>1:
+                curr=curr.next
+                indice-=1
+            curr.next=curr.next.next
+        else:
+            self.removetail()
+    
+    def insertindex(self,data,indice):
+        self.size+=1
+        if indice==0:
+            self.insertfromhead(data)
+        elif indice==self.size-1:
+            self.insertfromtail(data)
+        else:
+            newnode=Node(data)
+            curr=self.head
+            while indice>1:
+                curr=curr.next
+                indice-=1 
+            newnode.next=curr.next
+            curr.next=newnode
+    
+    def show(self):
+        curr=self.head 
+        while curr:
+            print('|',curr.data,'|',curr.next)
+            print(curr)
+            curr=curr.next 
+        print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
+    
+    def size(self):
+        print(self.size)
+    
+    def reverselisthead(self):
+        #reverselisthead means revesing the list from head of linkedlist 
+        curr=self.head
+        temp=None
+        while self.head:
+            self.head=self.head.next
+            curr.next=temp
+            temp=curr 
+            curr=self.head 
+        self.head=temp 
+        
+    def reverselisttail(self):
+        #reverselisttail means reversing the list from tail of linkedlist
+        curr=self.head 
+        
+        
+l=Linkedlist()
+l.insertfromtail(0)
+l.insertfromhead(1)
+l.insertfromtail(-1)
+l.insertfromhead(2)
+l.insertfromtail(-2)
+l.show()
+l.reverselisthead()
+l.show()

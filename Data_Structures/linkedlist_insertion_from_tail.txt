@@ -1,0 +1,33 @@
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.next=None 
+    
+class linkedlist:
+    def __init__(self):
+        self.head=None 
+        self.length=0
+        
+    def insertattail(self,data):
+        self.length+=1
+        new_node=Node(data)
+        if self.length>1:
+            self.head.next=new_node
+            
+        else:
+            self.first=new_node
+        self.head=new_node
+    
+    def show(self):
+        curr=self.first
+        while curr:
+            print(curr.data,end='-->')
+            curr=curr.next
+
+c=linkedlist()
+c.insertattail(0)
+c.insertattail(1)
+c.insertattail(2)
+c.insertattail(3)
+c.insertattail(4)
+c.show()

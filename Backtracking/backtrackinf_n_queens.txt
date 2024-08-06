@@ -1,0 +1,55 @@
+class chess:
+    def __init__(self,n,q):
+        self.q=q
+        self.n=self.board_maker(n)
+        self.board=self.play(self.n,self.q)
+            
+        
+    def board_maker(self,n):
+        n=[[0 for i in range(n)] for k in range(n)]
+        return n 
+    def is_safe(self, board, row, col):
+        # Check the column
+        for i in range(row):
+            if board[i][col] == 1:
+                return False
+        
+        # Check the upper left diagonal
+        i, j = row, col
+        while i >= 0 and j >= 0:
+            if board[i][j] == 1:
+                return False
+            i -= 1
+            j -= 1
+        
+        # Check the upper right diagonal
+        i, j = row, col
+        while i >= 0 and j < len(board):
+            if board[i][j] == 1:
+                return False
+            i -= 1
+            j += 1
+        
+        return True
+            
+    def play(self,n,q,i=0):
+            if q==0:
+                return n 
+            if i==len(n):
+                return False
+            for j in range(len(n)):
+                if self.is_safe(n,i,j):
+                    n[i][j]=1 
+                    value=self.play(n,q-1,i+1)
+                    if not value:
+                        n[i][j]=0
+                    else:
+                        return value
+
+            return False
+b=chess(int(input()),int(input()))
+k=b.board
+if k:
+    [print(i)for i in k]
+else:
+    print(k)

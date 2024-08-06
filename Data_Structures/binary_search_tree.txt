@@ -1,0 +1,145 @@
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.right=None
+        self.left=None 
+class tree:
+    def __init__(self):
+        self.root=None 
+        self.level=None
+    def treeappend(self,data):
+        if self.root==None:
+            self.root=Node(data)
+        else:
+            self.addnode(self.root,data)
+    def addnode(self,node,data):
+        if data>=node.data:
+            if node.right==None:
+                node.right=Node(data)
+            else:
+                node=node.right
+                self.addnode(node,data)
+        else:
+            if node.left==None:
+                node.left=Node(data)
+            else:
+                node=node.left
+                self.addnode(node,data)
+    def travesal(self,node):
+        if node:
+            self.travesal(node.left)
+            print(node.data, end=" ")
+            self.travesal(node.right)
+    def pretraversal(self,node):
+        if node:
+            print(node.data,end=' ')
+            self.pretraversal(node.left)
+            self.pretraversal(node.right)
+    def postraversal(self,node):
+        if node:
+            self.postraversal(node.left)
+            self.postraversal(node.right)
+            print(node.data,end=' ')
+    def find_level(self,node,level=0):
+        if node:
+            level+=1
+            level1=self.find_level(node.left,level)
+            level2=self.find_level(node.right,level)
+            if level1>=level2:
+                return level1
+            else:
+                return level2
+        else:
+            return level 
+            
+    def level_order_traversal(self,node):
+        k=self.find_level(node)
+        matrix = [[] for _ in range(k)]
+        matrix=self.level_order(node,matrix)
+        for i in matrix:
+            print(i)
+        
+    def level_order(self,node,lst,level=-1):
+        if node:
+            level+=1 
+            lst[level].append(node.data)
+            lst=self.level_order(node.left,lst,level)
+            lst=self.level_order(node.right,lst,level)
+            return lst 
+        else:
+            return lst
+    def count_of_nodes(self,node,node_count=0):
+        if node:
+            node_count+=1
+            node_count=self.count_of_nodes(node.left,node_count)
+            node_count=self.count_of_nodes(node.right,node_count)
+            return node_count
+            
+        else:
+            return node_count
+    
+    def sum_of_nodes(self,node,summ=0):
+        if not node:
+            return summ
+        
+        summ+=node.data
+        summ=self.sum_of_nodes(node.left,summ)
+        summ=self.sum_of_nodes(node.right,summ)
+        return summ
+            
+    def max_daimeter(self,node,count=0,lst=[]):
+        if node:
+            count+=1
+            countl,lst=self.max_daimeter(node.left,count,lst)
+            countlr=abs(countl-count)
+            countr,lst=self.max_daimeter(node.right,count,lst)
+            countrr=abs(countr-count)
+            node_count=countlr+countrr+1 
+            lst.append(node_count)
+            return max(countl,countr),[max(lst)]
+            
+        else:
+            return count,lst
+            
+    def subtree_of_tree(self,main_node,sub_node):
+        if main_node:
+            if main_node.data==sub_node.data:
+                value=self.subtree_track(main_node,sub_node)
+                return value
+            value=self.subtree_of_tree(main_node.left,sub_node)
+            if value==True:
+                return value
+            value=self.subtree_of_tree(main_node.right,sub_node)
+            return value
+        
+                
+                
+    def subtree_track(self,node_main,node_sub,value=True):
+        if node_main and node_sub:
+            if node_main.data==node_sub.data:
+                value=self.subtree_track(node_main.left,node_sub.left,value)
+                value=self.subtree_track(node_main.right,node_sub.right,value)
+                return value
+                
+            else:
+                return False
+        else:
+            return value
+                
+                
+        
+            
+        
+            
+        
+
+b=tree()
+bs=tree()
+l=[100,90,80,60,50,95,99,110,105,115,106,114]
+k=[100,200]
+for i in l:
+    b.treeappend(i)
+for i in k:
+    bs.treeappend(i)
+
+print(b.subtree_of_tree(b.root,bs.root))
