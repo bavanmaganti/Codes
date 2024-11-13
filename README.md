@@ -1,1 +1,1 @@
-# All codes are written form scratch
+# All codes are written from scratch
